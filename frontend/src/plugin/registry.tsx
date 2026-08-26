@@ -57,6 +57,7 @@ import {
   DefaultHeaderAction,
   HeaderActionsProcessor,
   HeaderActionType,
+  NewHeaderActionType,
   setAppBarAction,
   setAppBarActionsProcessor,
   setDetailsViewHeaderAction,
@@ -193,7 +194,7 @@ export type sectionFunc = (resource: KubeObject) => SectionFuncProps | null | un
 //        Maybe in a ResourceAction component? That is used by Headlamp too.
 // @todo: these should also have a *Props
 // @todo: HeaderActionType should be deprecated.
-export type DetailsViewHeaderActionType = HeaderActionType;
+export type DetailsViewHeaderActionType = HeaderActionType | NewHeaderActionType;
 export type DetailsViewHeaderActionsProcessor = HeaderActionsProcessor;
 
 export default class Registry {
@@ -469,6 +470,7 @@ export function registerRoute(routeSpec: Route) {
 }
 
 /**
+ * @deprecated Use NewHeaderActionType returning an ActionButton component instead.
  * Add a component into the details view header.
  *
  * @param headerAction - The action (link) to put in the app bar.

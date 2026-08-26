@@ -46,3 +46,48 @@ NullBacklink.args = {
   backLink: null,
   title: 'No Back Link Resource',
 };
+
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setDetailsViewHeaderAction } from '../../../../redux/actionButtonsSlice';
+import ActionButton from '../../ActionButton';
+
+export const PluginActions = () => {
+  const Inner = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+      // 1. Legacy action (returning arbitrary HTML)
+      const LegacyAction = () => (
+        <button style={{ border: '2px solid red', padding: '4px' }}>Legacy Action</button>
+      );
+
+      // 2. Modern action (returning standard ActionButton)
+      const ModernAction = () => (
+        <ActionButton icon="mdi:puzzle" description="Modern Action" onClick={() => {}} />
+      );
+
+      // Register them via redux to simulate a plugin
+      dispatch(
+        setDetailsViewHeaderAction({
+          id: 'legacy-action',
+          action: LegacyAction,
+        })
+      );
+      dispatch(
+        setDetailsViewHeaderAction({
+          id: 'modern-action',
+          action: ModernAction,
+        })
+      );
+    }, [dispatch]);
+
+    return <MainInfoSection resource={resource} title="Plugin Actions Example" />;
+  };
+
+  return (
+    <TestContext>
+      <Inner />
+    </TestContext>
+  );
+};
